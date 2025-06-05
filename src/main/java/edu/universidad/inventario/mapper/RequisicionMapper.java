@@ -4,6 +4,7 @@ import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import edu.universidad.inventario.dto.DetalleRequisicionDTO;
 import edu.universidad.inventario.dto.RequisicionDTO;
 import edu.universidad.inventario.entity.DetalleRequisicion;
@@ -13,11 +14,13 @@ import edu.universidad.inventario.repository.AsignaturaRepository;
 import edu.universidad.inventario.repository.InsumoRepository;
 import edu.universidad.inventario.repository.UsuarioRepository;
 
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public abstract class RequisicionMapper {
 
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+public class RequisicionMapper {  // ← Quitar "abstract"
+    
     @Autowired
     protected AsignaturaRepository asignaturaRepository;
+
 
     @Autowired
     protected UsuarioRepository usuarioRepository;

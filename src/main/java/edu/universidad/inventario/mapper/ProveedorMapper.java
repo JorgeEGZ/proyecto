@@ -1,9 +1,10 @@
 package edu.universidad.inventario.mapper;
 
+import java.util.List;
+import org.mapstruct.Mapper;
 import edu.universidad.inventario.dto.ProveedorDTO;
 import edu.universidad.inventario.entity.Proveedor;
-import org.mapstruct.Mapper;
-import java.util.List;
+    
 
 
 @Mapper(componentModel = "spring")

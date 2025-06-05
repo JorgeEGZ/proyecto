@@ -16,18 +16,24 @@ services:
       - db_data:/var/lib/mysql
     networks:
       - red_inventario
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
 
   backend:
     build: .
     container_name: backend_inventario
     depends_on:
-      - mariadb
+      mariadb:
+        condition: service_healthy
     ports:
       - "8080:8080"
     environment:
       SPRING_DATASOURCE_URL: jdbc:mariadb://mariadb:3306/inventario_gastronomia
       SPRING_DATASOURCE_USERNAME: inventario_user
       SPRING_DATASOURCE_PASSWORD: inv123
+      SPRING_PROFILES_ACTIVE: docker
     networks:
       - red_inventario
 
@@ -44,7 +50,6 @@ services:
       - "8081:80"
     networks:
       - red_inventario
-
 
 volumes:
   db_data:
