@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 import edu.universidad.inventario.dto.ConsumoInsumoPorAsignaturaDTO;
+import edu.universidad.inventario.dto.TopInsumoDTO;
 import edu.universidad.inventario.entity.DetalleRequisicion;
 
 
@@ -24,5 +25,17 @@ public interface DetalleRequisicionRepository extends JpaRepository<DetalleRequi
     ORDER BY a.nombre, i.nombre
 """)
 List<ConsumoInsumoPorAsignaturaDTO> getConsumoInsumosPorAsignatura();
+
+@Query("""
+    SELECT 
+        i.nombre AS insumo,
+        dr.unidad AS unidad,
+        SUM(dr.cantidadUtilizada) AS cantidadTotal
+    FROM DetalleRequisicion dr
+    JOIN dr.insumo i
+    GROUP BY i.nombre, dr.unidad
+    ORDER BY SUM(dr.cantidadUtilizada) DESC
+""")
+List<TopInsumoDTO> findTopInsumosMasUsados();
 
 }

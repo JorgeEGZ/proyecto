@@ -1,5 +1,7 @@
 package edu.universidad.inventario.entity;
 
+import java.math.BigDecimal;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,6 +20,8 @@ public class Insumo {
     private String nombre;
     private String categoria;
     private String unidadMedida;
+    private BigDecimal stock;
+
 
     @Column(name = "cantidad_stock_actual")
     private Double cantidadStockActual;
